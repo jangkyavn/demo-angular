@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, NavigationEnd, PRIMARY_OUTLET, RoutesRecognized } from '@angular/router';
-import { filter } from 'rxjs/operators';
-import { map, mergeMap } from 'rxjs/internal/operators';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { filter, distinctUntilChanged, map } from 'rxjs/operators';
+
+import { BreadCrumb } from '@model/bread-crumb.model';
 
 @Component({
   selector: 'app-breadcrumb',
@@ -9,59 +10,43 @@ import { map, mergeMap } from 'rxjs/internal/operators';
   styleUrls: ['./breadcrumb.component.css']
 })
 export class BreadcrumbComponent implements OnInit {
-  breadcrumbs;
   key = 'title';
+  breadcrumbs$ = this.router.events.pipe(
+    filter(event => event instanceof NavigationEnd),
+    distinctUntilChanged(),
+    map(event => this.buildBreadCrumb(this.activatedRoute.root))
+  );
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router) { }
 
-  ngOnInit() {
-    this.loadBreadcumbs();
-    this.loadBreadcumbsWhenNavigated();
-  }
+  ngOnInit() { }
 
-  loadBreadcumbs() {
-    this.activatedRoute.url.subscribe(() => {
-      const snapshot = this.router.routerState.snapshot;
-      this.breadcrumbs = [];
-      const url = snapshot.url;
-      const routeData = this.activatedRoute.snapshot.firstChild.firstChild.data;
+  buildBreadCrumb(route: ActivatedRoute, url: string = '',
+                  breadcrumbs: Array<BreadCrumb> = []): Array<BreadCrumb> {
+    console.log(route.routeConfig);
+    // If no routeConfig is avalailable we are on the root path
+    const label = route.routeConfig ? route.routeConfig.data[this.key] : 'Home';
+    console.log(label);
+    // const path = route.routeConfig ? route.routeConfig.path : '';
+    // // In the routeConfig the complete path is not available,
+    // // so we rebuild it each time
+    // const nextUrl = `${url}${path}/`;
+    // const breadcrumb = {
+    //   label,
+    //   url: nextUrl,
+    // };
 
-      const label = routeData[this.key];
-      const params = snapshot.root.params;
+    // console.log(nextUrl);
+    // const newBreadcrumbs = [...breadcrumbs, breadcrumb];
+    // if (route.firstChild) {
+    //   // If we are not on our current path yet,
+    //   // there will be more children to look after, to build our breadcumb
+    //   return this.buildBreadCrumb(route.firstChild, nextUrl, newBreadcrumbs);
+    // }
+    // return newBreadcrumbs;
 
-      this.breadcrumbs.push({
-        url,
-        label,
-        params
-      });
-    });
-  }
-
-  loadBreadcumbsWhenNavigated() {
-    this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
-      .pipe(map(() => this.activatedRoute))
-      .pipe(map((route) => {
-        while (route.firstChild) { route = route.firstChild; }
-        return route;
-      }))
-      .pipe(filter(route => route.outlet === PRIMARY_OUTLET))
-      .subscribe(route => {
-        const snapshot = this.router.routerState.snapshot;
-        this.breadcrumbs = [];
-        const url = snapshot.url;
-        const routeData = route.snapshot.data;
-
-        const label = routeData[this.key];
-        const params = snapshot.root.params;
-
-        this.breadcrumbs.push({
-          url,
-          label,
-          params
-        });
-      });
+    return [];
   }
 }
