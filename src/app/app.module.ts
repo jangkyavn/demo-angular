@@ -2,25 +2,29 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { NgZorroAntdModule, NZ_I18N, vi_VN } from 'ng-zorro-antd';
+import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
-import vi from '@angular/common/locales/vi';
+import us from '@angular/common/locales/en';
 
-registerLocaleData(vi);
+registerLocaleData(us);
 
 import { AppRoutingModule } from './app.routing';
 import { NgDynamicBreadcrumbModule } from 'ng-dynamic-breadcrumb';
 
-import { BreadcrumbComponent } from './shared/components/breadcrumb/breadcrumb.component';
+import { BreadcrumbComponent } from '@component/breadcrumb/breadcrumb.component';
+
+const APP_CONTAINERS = [
+   AppComponent,
+   BreadcrumbComponent
+];
 
 @NgModule({
    declarations: [
-      AppComponent,
       AppRoutingModule.components,
-      BreadcrumbComponent
+      ...APP_CONTAINERS
    ],
    imports: [
       BrowserModule,
@@ -32,7 +36,7 @@ import { BreadcrumbComponent } from './shared/components/breadcrumb/breadcrumb.c
       NgDynamicBreadcrumbModule
    ],
    providers: [
-      { provide: NZ_I18N, useValue: vi_VN }
+      { provide: NZ_I18N, useValue: en_US }
    ],
    bootstrap: [
       AppComponent

@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
+import { NzModalService } from 'ng-zorro-antd/modal';
+
 import { Customer } from '@model/customer.model';
 import { CustomersService } from '@service/customers.service';
 import { UtilitiesService } from '@service/utilities.service';
+
+import { UserAddEditModalComponent } from './user-add-edit-modal/user-add-edit-modal.component';
 
 @Component({
   selector: 'app-customers',
@@ -13,6 +17,7 @@ export class CustomersComponent implements OnInit {
   customers: Customer[];
 
   constructor(
+    private modalService: NzModalService,
     private customersService: CustomersService,
     private utilitiesService: UtilitiesService) { }
 
@@ -25,7 +30,39 @@ export class CustomersComponent implements OnInit {
   }
 
   addNew() {
-    //
+    const modal = this.modalService.create({
+      nzTitle: 'Add new customer',
+      nzContent: UserAddEditModalComponent,
+      nzMaskClosable: false,
+      nzClosable: false,
+      nzComponentParams: {
+        isAddNew: true,
+        customer: {}
+      },
+      nzFooter: [
+        {
+          label: 'Cancel',
+          shape: 'default',
+          onClick: () => modal.destroy(),
+        },
+        {
+          label: 'Save',
+          type: 'primary',
+          onClick: (componentInstance) => {
+            componentInstance.saveChanges();
+          }
+        }
+      ]
+    });
+
+    modal.afterClose.subscribe((result: boolean) => {
+      if (result) {
+        this.loadData();
+        modal.destroy();
+      } else {
+        modal.destroy();
+      }
+    });
   }
 
   edit() {

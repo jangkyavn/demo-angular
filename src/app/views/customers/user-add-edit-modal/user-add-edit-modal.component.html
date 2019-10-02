@@ -1,0 +1,49 @@
+<form nz-form [formGroup]="customerForm" autocomplete="off">
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">Name</nz-form-label>
+    <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Please input your name!">
+      <input nz-input formControlName="name" id="name" autofocus />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">Email</nz-form-label>
+    <nz-form-control [nzSm]="18" [nzXs]="24" [nzErrorTip]="errorMail">
+      <input nz-input formControlName="email" id="email" />
+      <ng-template #errorMail let-control>
+        <ng-container *ngIf="control.hasError('required')">
+          Please input your email!
+        </ng-container>
+        <ng-container *ngIf="control.hasError('email')">
+          The input is not valid E-mail!
+        </ng-container>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="gender">Gender</nz-form-label>
+    <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Please choose your gender!">
+      <nz-radio-group formControlName="gender">
+        <label nz-radio [nzValue]="true">Male</label>
+        <label nz-radio [nzValue]="false">Female</label>
+      </nz-radio-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="birthDay">BirthDay</nz-form-label>
+    <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Please input your birthday!">
+      <nz-date-picker formControlName="birthDay" id="birthDay"></nz-date-picker>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="phoneNumber">Phone number</nz-form-label>
+    <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Please input your phone number!">
+      <input nz-input formControlName="phoneNumber" id="phoneNumber">
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="address">Address</nz-form-label>
+    <nz-form-control [nzSm]="18" [nzXs]="24">
+      <textarea rows="4" nz-input formControlName="address" id="address"></textarea>
+    </nz-form-control>
+  </nz-form-item>
+</form>

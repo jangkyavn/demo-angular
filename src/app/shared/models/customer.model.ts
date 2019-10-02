@@ -3,6 +3,7 @@ export interface Customer {
     name?: string;
     email?: string;
     gender?: boolean;
+    birthDay?: Date;
     phoneNumber?: string;
     address?: string;
 }
