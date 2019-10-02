@@ -1,0 +1,28 @@
+<nz-layout>
+  <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
+    <div class="logo"></div>
+    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li nz-menu-item [routerLink]="['/']">
+        <i nz-icon nzType="dashboard" nzTheme="outline"></i>
+        <span>Dashboard</span>
+      </li>
+      <li nz-menu-item [routerLink]="['/customers']">
+        <i nz-icon nzType="user"></i>
+        <span>Customer</span>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+        (click)="isCollapsed = !isCollapsed"></i>
+    </nz-header>
+    <nz-content>
+      <app-breadcrumb></app-breadcrumb>
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+    <nz-footer>Ant Design ©2019 By AnhBH</nz-footer>
+  </nz-layout>
+</nz-layout>
