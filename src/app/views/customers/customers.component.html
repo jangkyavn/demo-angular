@@ -1,23 +1,27 @@
-<div style="margin-bottom: 5px;">
-  <button nz-button nzType="primary" (click)="addNew()">
-    <i nz-icon nzType="plus" nzTheme="outline"></i> Add new
-  </button>
+<div nz-row style="margin-bottom: 5px;">
+  <div nz-col nzSpan="8">
+    <button nz-button nzType="primary" (click)="addNew()">
+      <i nz-icon nzType="plus" nzTheme="outline"></i> Add new
+    </button>
+  </div>
+  <div nz-col nzSpan="8" nzOffset="8">
+    <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+      <input type="text" nz-input placeholder="input search text" [(ngModel)]="pagingParams.keyword" (keyup.enter)="searchData()" />
+    </nz-input-group>
+    <ng-template #suffixIconButton>
+      <button nz-button nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
+    </ng-template>
+  </div>
 </div>
-<nz-table #basicTable nzShowSizeChanger
-[nzFrontPagination]="false"
-[nzData]="pagedResult.items"
-[nzLoading]="loading"
-[nzTotal]="pagedResult.totalCount"
-[(nzPageIndex)]="pagedResult.currentPage"
-[(nzPageSize)]="pagedResult.pageSize"
-(nzPageIndexChange)="searchData()"
-(nzPageSizeChange)="searchData(true)"
-[nzPageSizeOptions]="[1, 5, 10, 20]">
+<nz-table #basicTable nzShowSizeChanger [nzFrontPagination]="false" [nzData]="pagedResult.items" [nzLoading]="loading"
+  [nzTotal]="pagedResult.totalCount" [(nzPageIndex)]="pagedResult.currentPage" [(nzPageSize)]="pagedResult.pageSize"
+  (nzPageIndexChange)="searchData()" (nzPageSizeChange)="searchData(true)" [nzPageSizeOptions]="[1, 5, 10, 20]">
   <thead (nzSortChange)="sort($event)" nzSingleSort>
     <tr>
       <th>Name</th>
       <th>Email</th>
-      <th nzShowFilter [nzFilterMultiple]="false" [nzFilters]="filterGender" (nzFilterChange)="updateFilter($event)">Gender</th>
+      <th nzShowFilter [nzFilterMultiple]="false" [nzFilters]="filterGender" (nzFilterChange)="updateFilter($event)">
+        Gender</th>
       <th>BirthDay</th>
       <th>Phone number</th>
       <th>Address</th>

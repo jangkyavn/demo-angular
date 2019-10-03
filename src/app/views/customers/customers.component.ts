@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -26,6 +26,13 @@ export class CustomersComponent implements OnInit {
   };
   filterGender = [{ text: 'male', value: true }, { text: 'female', value: false }];
   searchGenderList: string[] = [];
+
+  @HostListener('window:keydown', ['$event'])
+  onKeyPress($event: KeyboardEvent) {
+    if ($event.key === 'Insert') {
+      this.addNew();
+    }
+  }
 
   constructor(
     private modalService: NzModalService,
