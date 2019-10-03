@@ -36,8 +36,6 @@ export class CustomersService {
   }
 
   add(customer: Customer): Observable<Customer> {
-    console.log(customer);
-    console.log(JSON.stringify(customer));
     return this.http.post<Customer>(`${this.baseUrl}customer`, customer, this.httpOptions).pipe(
       tap((newCustomer: Customer) => this.log(`added customer w/ id=${newCustomer.id}`)),
       catchError(this.handleError<Customer>('addCustomer'))

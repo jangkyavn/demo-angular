@@ -36,12 +36,20 @@
   </nz-form-item>
   <nz-form-item>
     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="phoneNumber">Phone number</nz-form-label>
-    <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Please input your phone number!">
+    <nz-form-control [nzSm]="18" [nzXs]="24" [nzErrorTip]="errorPhoneNumber">
       <input nz-input formControlName="phoneNumber" id="phoneNumber">
+      <ng-template #errorPhoneNumber let-control>
+        <ng-container *ngIf="control.hasError('required')">
+          Please input your phone number!
+        </ng-container>
+        <ng-container *ngIf="control.hasError('pattern')">
+          The input is number only!
+        </ng-container>
+      </ng-template>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="address">Address</nz-form-label>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="address">Address</nz-form-label>
     <nz-form-control [nzSm]="18" [nzXs]="24">
       <textarea rows="4" nz-input formControlName="address" id="address"></textarea>
     </nz-form-control>

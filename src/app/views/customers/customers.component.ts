@@ -37,7 +37,9 @@ export class CustomersComponent implements OnInit {
       nzClosable: false,
       nzComponentParams: {
         isAddNew: true,
-        customer: {}
+        customer: {
+          id: 0
+        }
       },
       nzFooter: [
         {
@@ -65,8 +67,40 @@ export class CustomersComponent implements OnInit {
     });
   }
 
-  edit() {
-    ///
+  edit(data: any) {
+    const modal = this.modalService.create({
+      nzTitle: 'Edit customer',
+      nzContent: UserAddEditModalComponent,
+      nzMaskClosable: false,
+      nzClosable: false,
+      nzComponentParams: {
+        isAddNew: false,
+        customer: data
+      },
+      nzFooter: [
+        {
+          label: 'Cancel',
+          shape: 'default',
+          onClick: () => modal.destroy(),
+        },
+        {
+          label: 'Save',
+          type: 'primary',
+          onClick: (componentInstance) => {
+            componentInstance.saveChanges();
+          }
+        }
+      ]
+    });
+
+    modal.afterClose.subscribe((result: boolean) => {
+      if (result) {
+        this.loadData();
+        modal.destroy();
+      } else {
+        modal.destroy();
+      }
+    });
   }
 
   delete(data: any) {

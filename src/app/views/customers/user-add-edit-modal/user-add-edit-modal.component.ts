@@ -36,7 +36,7 @@ export class UserAddEditModalComponent implements OnInit {
       email: [null, [Validators.required, Validators.email]],
       gender: [null, [Validators.required]],
       birthDay: [null, [Validators.required]],
-      phoneNumber: [null, [Validators.required]],
+      phoneNumber: [null, [Validators.required, Validators.pattern('^[0-9]*$')]],
       address: [null]
     });
   }
@@ -64,13 +64,11 @@ export class UserAddEditModalComponent implements OnInit {
       });
     } else {
       this.customersService.update(data).subscribe((res: any) => {
-        console.log('edit', res);
-        if (res != null) {
-          this.utilitiesService.success('Successfully');
-          this.modal.destroy(true);
-        } else {
-          this.utilitiesService.error('Failure');
-        }
+        this.utilitiesService.success('Successfully');
+        this.modal.destroy(true);
+      }, error => {
+        console.log('Edit fail customer');
+        this.utilitiesService.error('Failure');
       });
     }
   }
