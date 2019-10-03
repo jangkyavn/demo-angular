@@ -18,7 +18,7 @@
   (nzPageIndexChange)="searchData()" (nzPageSizeChange)="searchData(true)" [nzPageSizeOptions]="[1, 5, 10, 20]">
   <thead (nzSortChange)="sort($event)" nzSingleSort>
     <tr>
-      <th style="width: 15%">Name</th>
+      <th style="width: 10%">Name</th>
       <th style="width: 20%">Email</th>
       <th style="width: 10%" nzShowFilter [nzFilterMultiple]="false" [nzFilters]="filterGender" (nzFilterChange)="updateFilter($event)">
         Gender</th>
