@@ -3,12 +3,21 @@
     <i nz-icon nzType="plus" nzTheme="outline"></i> Add new
   </button>
 </div>
-<nz-table #basicTable [nzData]="customers">
-  <thead>
+<nz-table #basicTable nzShowSizeChanger
+[nzFrontPagination]="false"
+[nzData]="pagedResult.items"
+[nzLoading]="loading"
+[nzTotal]="pagedResult.totalCount"
+[(nzPageIndex)]="pagedResult.currentPage"
+[(nzPageSize)]="pagedResult.pageSize"
+(nzPageIndexChange)="searchData()"
+(nzPageSizeChange)="searchData(true)"
+[nzPageSizeOptions]="[1, 5, 10, 20]">
+  <thead (nzSortChange)="sort($event)" nzSingleSort>
     <tr>
       <th>Name</th>
       <th>Email</th>
-      <th>Gender</th>
+      <th nzShowFilter [nzFilterMultiple]="false" [nzFilters]="filterGender" (nzFilterChange)="updateFilter($event)">Gender</th>
       <th>BirthDay</th>
       <th>Phone number</th>
       <th>Address</th>

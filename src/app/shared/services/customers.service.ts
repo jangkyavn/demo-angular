@@ -4,8 +4,10 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
-import { Customer } from '../models/customer.model';
-import { MessageService } from '../services/message.service';
+import { Customer } from '@model/customer.model';
+import { PagedResult } from '@model/paged-result.model';
+import { PagingParams } from '@model/paging-params.model';
+import { MessageService } from '@service/message.service';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +27,19 @@ export class CustomersService {
         tap(_ => this.log('fetched customers')),
         catchError(this.handleError<Customer[]>('getAll', []))
       );
+  }
+
+  getAllPaging(pageIndex?: any, pageSize?: any, pagingParams?: PagingParams): Observable<PagedResult<Customer>> {
+    let params = new HttpParams();
+    params = params.append('pageNumber', pageIndex || '1');
+    params = params.append('pageSize', pageSize || '1');
+    params = params.append('keyword', pagingParams.keyword || '');
+
+    if (pagingParams.filterGender != null) {
+      params = params.append('filterGender', pagingParams.filterGender + '');
+    }
+
+    return this.http.get<PagedResult<Customer>>(this.baseUrl + 'customer/GetAllPaging', { params });
   }
 
   get(id: number): Observable<Customer> {

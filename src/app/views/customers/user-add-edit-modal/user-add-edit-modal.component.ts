@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostListener } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NzModalRef } from 'ng-zorro-antd';
 
@@ -22,6 +22,13 @@ export class UserAddEditModalComponent implements OnInit {
     private customersService: CustomersService,
     private utilitiesService: UtilitiesService
   ) { }
+
+  @HostListener('window:keydown', ['$event'])
+  onKeyPress($event: KeyboardEvent) {
+    if ($event.ctrlKey && $event.key === 'Enter') {
+      this.saveChanges();
+    }
+  }
 
   ngOnInit() {
     this.createForm();
@@ -54,7 +61,6 @@ export class UserAddEditModalComponent implements OnInit {
     const data = this.customerForm.value;
     if (this.isAddNew) {
       this.customersService.add(data).subscribe((res: any) => {
-        console.log('add', res);
         if (res != null) {
           this.utilitiesService.success('Successfully');
           this.modal.destroy(true);

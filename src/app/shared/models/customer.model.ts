@@ -3,7 +3,7 @@ export interface Customer {
     name?: string;
     email?: string;
     gender?: boolean;
-    birthDay?: Date;
+    birthDay?: string;
     phoneNumber?: string;
     address?: string;
 }
