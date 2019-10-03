@@ -24,7 +24,7 @@ export class CustomersComponent implements OnInit {
   pagingParams: PagingParams = {
     keyword: ''
   };
-  filterGender = [{ text: 'male', value: true }, { text: 'female', value: false }];
+  filterGender = [{ text: 'Male', value: true }, { text: 'Female', value: false }];
   searchGenderList: string[] = [];
 
   @HostListener('window:keydown', ['$event'])
