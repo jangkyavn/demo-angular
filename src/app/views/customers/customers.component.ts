@@ -78,6 +78,9 @@ export class CustomersComponent implements OnInit {
     const modal = this.modalService.create({
       nzTitle: 'Add new customer',
       nzContent: UserAddEditModalComponent,
+      nzStyle: {
+        top: '20px'
+      },
       nzMaskClosable: false,
       nzClosable: false,
       nzComponentParams: {
@@ -116,6 +119,9 @@ export class CustomersComponent implements OnInit {
     const modal = this.modalService.create({
       nzTitle: 'Edit customer',
       nzContent: UserAddEditModalComponent,
+      nzStyle: {
+        top: '20px'
+      },
       nzMaskClosable: false,
       nzClosable: false,
       nzComponentParams: {
