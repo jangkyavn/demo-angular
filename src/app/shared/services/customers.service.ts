@@ -31,8 +31,8 @@ export class CustomersService {
 
   getAllPaging(pageIndex?: any, pageSize?: any, pagingParams?: PagingParams): Observable<PagedResult<Customer>> {
     let params = new HttpParams();
-    params = params.append('pageNumber', pageIndex || '1');
-    params = params.append('pageSize', pageSize || '1');
+    params = params.append('pageNumber', pageIndex);
+    params = params.append('pageSize', pageSize);
     params = params.append('keyword', pagingParams.keyword || '');
 
     if (pagingParams.filterGender != null) {

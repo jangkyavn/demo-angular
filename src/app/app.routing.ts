@@ -11,6 +11,10 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
+    path: 'login',
+    loadChildren: () => import('./views/login/login.module').then(m => m.LoginModule)
+  },
+  {
     path: '404',
     component: P404Component,
     data: {
@@ -31,7 +35,11 @@ export const routes: Routes = [
       {
         path: 'customers',
         loadChildren: () => import('./views/customers/customers.module').then(m => m.CustomersModule)
-      }
+      },
+      // {
+      //   path: 'page',
+      //   loadChildren: () => import('./views/page/page.module').then(m => m.PageModule)
+      // }
     ]
   },
   { path: '**', component: P404Component }

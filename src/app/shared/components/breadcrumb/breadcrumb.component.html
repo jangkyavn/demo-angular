@@ -1,17 +1,7 @@
-<!-- <nz-breadcrumb>
+<nz-breadcrumb>
   <nz-breadcrumb-item *ngFor='let breadcrumb of breadcrumbs'>
     <a [routerLink]='[breadcrumb.url, breadcrumb.params]' routerLinkActive='active'>
       {{ breadcrumb.label }}
     </a>
   </nz-breadcrumb-item>
-</nz-breadcrumb> -->
-
-<!-- <ol class="breadcrumb">
-  <li *ngFor="let breadcrumb of breadcrumbs$ | async; last as isLast;" class="breadcrumb-item"
-    [ngClass]="{'active': isLast}" aria-current="page">
-    <a *ngIf="!isLast; else lastRoute" [routerLink]="[breadcrumb.url]" routerLinkActive="active">
-      {{ breadcrumb.label }}
-    </a>
-    <ng-template #lastRoute>{{ breadcrumb.label }}</ng-template>
-  </li>
-</ol> -->
+</nz-breadcrumb>

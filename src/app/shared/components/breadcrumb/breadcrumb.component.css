@@ -1,21 +1,3 @@
 nz-breadcrumb {
     margin: 16px 0;
 }
-
-.breadcrumb li {
-    display: inline;
-}
-
-.breadcrumb li+li:before {
-    content: " > ";
-    color: white;
-}
-
-.breadcrumb {
-    background-color: #8d0000;
-    padding: 20px;
-}
-
-.breadcrumb a {
-    color: white;
-}

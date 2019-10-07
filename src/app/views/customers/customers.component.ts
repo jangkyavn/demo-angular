@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -18,12 +18,13 @@ import { PagedResult } from '@model/paged-result.model';
 export class CustomersComponent implements OnInit {
   customers: Customer[];
   loading: boolean;
-  pagedResult: PagedResult<Customer> = {};
+  pagedResult: PagedResult<Customer> = {
+    currentPage: 1,
+    pageSize: 5
+  };
   sortValue: string | null = null;
   sortKey: string | null = null;
-  pagingParams: PagingParams = {
-    keyword: ''
-  };
+  pagingParams: PagingParams = {};
   filterGender = [{ text: 'Male', value: true }, { text: 'Female', value: false }];
   searchGenderList: string[] = [];
 

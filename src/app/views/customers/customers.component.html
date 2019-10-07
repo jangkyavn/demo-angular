@@ -15,7 +15,7 @@
 </div>
 <nz-table #basicTable nzShowSizeChanger [nzFrontPagination]="false" [nzData]="pagedResult.items" [nzLoading]="loading"
   [nzTotal]="pagedResult.totalCount" [(nzPageIndex)]="pagedResult.currentPage" [(nzPageSize)]="pagedResult.pageSize"
-  (nzPageIndexChange)="searchData()" (nzPageSizeChange)="searchData(true)" [nzPageSizeOptions]="[1, 5, 10, 20]">
+  (nzPageIndexChange)="searchData()" (nzPageSizeChange)="searchData(true)" [nzPageSizeOptions]="[5, 10, 15, 20]" [nzShowQuickJumper]="true">
   <thead (nzSortChange)="sort($event)" nzSingleSort>
     <tr>
       <th style="width: 10%">Name</th>
